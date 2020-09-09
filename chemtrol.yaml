@@ -1,0 +1,50 @@
+ip: <REDACTED>
+username: <REDACTED>
+password: <REDACTED>
+crop:
+  x: [1000, 1400]
+  y: [1100, 1400]
+warp: 
+  - [19,75]
+  - [40,222]
+  - [345,193]
+  - [345,45]
+
+digits:
+  - name: orp
+    num_digits: 3
+    crop: 
+      x: [180, 440]
+      y: [100, 220]
+    warp:
+      - [14,0]
+      - [260,0]
+      - [230,120]
+      - [0,120]
+    bbox_location: [28, 35]
+    bbox_size: [200, 65]
+    digit_gap: 14
+    segment_width: 0.30
+    segment_height: 0.20
+    booleans:
+      feed: [98, 152, 12, 6]
+      alarm: [98, 246, 12, 6]
+
+  - name: ph
+    num_digits: 2
+    crop: 
+      x: [680, 880]
+      y: [100, 220]
+    warp: 
+      - [40,0]
+      - [200,6]
+      - [192,120]
+      - [0,114]
+    bbox_location: [30, 36]
+    bbox_size: [138, 66]
+    digit_gap: 16
+    segment_width: 0.30
+    segment_height: 0.20
+    booleans:
+      feed: [986, 152, 12, 6]
+      alarm: [986, 246, 12, 6]
