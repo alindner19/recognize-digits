@@ -40,7 +40,7 @@ The Chemtrol device has the digits leaning to be stylish.
 Then we crop and warp to each display.  Both are contrived as for the warp there is nothing
 framing this digit lean.
 ![ORP warped](images/orp_warped.png "ORP warped")
-![pH warped](images/pH_warped.png "pH warped")
+![pH warped](images/ph_warped.png "pH warped")
 
 ## Read Digit Segments
 Now that we have the image cropped and warped we can read the digit segments.
