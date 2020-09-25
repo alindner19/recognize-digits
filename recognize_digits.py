@@ -82,6 +82,10 @@ class RecognizeDigits(RecognizeDigitsHelper):
         self._attrs = {}
         self._color = self.warp(self.crop(image))
 
+    @property
+    def name(self):
+        return self.options.get('name')
+
     def gray_image(self):
         """
         Grays the image
