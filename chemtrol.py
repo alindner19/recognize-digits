@@ -1,10 +1,11 @@
 import os
 from argparse import ArgumentParser
 from pathlib import Path
-from homeassistant import HomeAssistant
-from recognize_digits.recognize_digits import RecognizeDigits, ReadDigitsImage
-from recognize_digits.exceptions import DataException
 from secrets import HOME_URL, HA_TOKEN
+
+from .homeassistant import HomeAssistant
+from .recognize_digits import RecognizeDigits, ReadDigitsImage
+from .exceptions import DataException
 
 ALARM_TIMEOUT = 2
 
@@ -12,7 +13,7 @@ ALARM_TIMEOUT = 2
 def yaml_path():
     if os.name == "nt":
         return Path('s:\\') / 'python' / 'chemtrol'
-    return Path("/volume1/data/")
+    return Path("/data/")
 
 
 class ChemtrolDigits(RecognizeDigits):
@@ -39,12 +40,21 @@ class ChemtrolDigits(RecognizeDigits):
     @property
     def as_float(self):
         try:
-            value = float(self.read())
-        except ValueError:
-            value = ''
+            data = self.read()
+            try:
+                value = float(data)
+            except ValueError:
+                return None
+        except DataException:
+            return None
+
+        # pH cannot be above 14 which means its the x amount of minute timeout alarm.
+        if value > 14:
+            self._attrs['alarm'] = True
+            raise DataException(f'{self.name} {int(value)} minute timeout alarm')
+
         if self.alarm_on:
-            print(self._attrs.get('name'), 'alarm is on', value)
-            return ''
+            raise DataException(f'{self.name} alarm is on: {value}')
 
         if isinstance(value, float) and (value < 5 or value >= 10):
             print('uncaught timeout error', value)
